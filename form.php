@@ -1,0 +1,1 @@
+<?php 		echo '<h1><pre>',print_r($_SERVER,1),'</pre></h1>';
