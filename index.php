@@ -1,0 +1,1 @@
+<?php 		echo $GLOBALS['test'];			?><h2><a href="form.php">Form</a></h2>
