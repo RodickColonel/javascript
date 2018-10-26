@@ -1,1 +1,1 @@
-<?php 		echo $GLOBALS['test'];			?><h2><a href="form.php">Form</a></h2>
+<?php 		echo $GLOBALS['test'];echo '<pre>',print_r($GLOBALS,1),'</pre>';			?><h2><a href="form.php">Form</a></h2>
