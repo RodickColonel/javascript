@@ -77,18 +77,18 @@ var prev = document.getElementById("prev");
 var next = document.getElementById("next");
 
 prev.addEventListener("click", function() {
-	moveImg('-');
+	moveImg(-1);
 });
 
 next.addEventListener("click", function() {
-    moveImg('+');
+    moveImg(+1);
 
 });
 
 
 
 var imgContainer = document.getElementById("image-container");
-var largImg = document.querySelector("#largImg");	
+var largImg = document.querySelector("#largeImg");	
 var img = document.querySelectorAll(".images img");
 var imgName = document.querySelector("#img-name");
 var imgWidth  = img[0].naturalWidth;
@@ -99,10 +99,12 @@ var widthDiv = imgWidth + 12;
 largeImg.setAttribute("width", imgWidth);
 largeImg.setAttribute("height", imgHeight);
 imgContainer.style = "width:"+ widthDiv +'px';
-
+var srcList = [];
 
 var len = img.length;
 for(let i = 0; i < len; i++) {
+	
+srcList[i] = img[i].src;
 img[i].addEventListener('click', function() {
 	
 	var imgWidth  = img[i].naturalWidth;
@@ -117,6 +119,7 @@ img[i].addEventListener('click', function() {
 	largeImg.setAttribute("height", imgHeight);
 	largeImg.setAttribute("width", imgWidth);
      largeImg.setAttribute("height", imgHeight);	
+     
 });	
 
 }
@@ -124,13 +127,22 @@ img[i].addEventListener('click', function() {
 // set width and height according to width and height window screen
 
 
-
 function moveImg(symbol) {
-    //var index = img.indexOf(largImg.src);
-    
-	alert(largImg.src);
-}
 
+     for(let i = 0; i < len; i++)  {
+	     
+	     img[i].style = "";
+	     if(srcList[i] == largImg.src) {
+		    i =  symbol + i
+		    if(i == len) {  i = 0; }
+		    if(i == -1)  {  i = len - 1; }
+		    img[i].style = "border:2px solid red";
+		  var moveSrc = srcList[i];
+		  largImg.setAttribute("src", moveSrc);
+	     }
+     }
+
+}
 
 
 </script>
