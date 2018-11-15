@@ -6,8 +6,13 @@
 	box-shadow:1px 1px 1px #979797;
 	margin-bottom:0;
 }
-
+#largeImg {
+	width:97%;
+	height:auto;
+}
 #image-container {
+	width:98%;
+	max-width:700px;
 	border:2px solid #ffefde;
 	border-radius:6px;
 	box-shadow:1px 1px 1px 1px #251e1e;
@@ -23,11 +28,12 @@
 	margin-bottom:5px;
 }
 #prev {
-    margin-right:40%;
+    margin-right:80%;
 }
-#next {
-    margin-left:40%;
-}
+@media screen and (max-width: 600px) {
+	#prev {
+    margin-right:60%;
+}}
 #prev, #next {
 	margin-top:0;
 }

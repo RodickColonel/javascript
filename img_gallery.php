@@ -58,7 +58,8 @@ $images = array(
 <body>
 <div id="image-container">
 <div id="prev-next">	
-<img src="img/abbey_wood_park_1.jpg" id="largeImg"  width="500px" height="400">
+<div id="enlarge"></div>
+<img src="img/abbey_wood_park_1.jpg" id="largeImg">
 <b id="prev">PREV</b><b id="next">NEXT</b>
 </div>
 <div class="images">
@@ -73,64 +74,55 @@ $images = array(
 <script>
 	
 
-var prev = document.getElementById("prev");
-var next = document.getElementById("next");
-
-prev.addEventListener("click", function() {
-	moveImg(-1);
-});
-
-next.addEventListener("click", function() {
-    moveImg(+1);
-
-});
-
-
-
+var prev         = document.getElementById("prev");
+var next         = document.getElementById("next");
+var body         = document.querySelectorAll("body");
 var imgContainer = document.getElementById("image-container");
-var largImg = document.querySelector("#largeImg");	
-var img = document.querySelectorAll(".images img");
-var imgName = document.querySelector("#img-name");
+var largImg      = document.querySelector("#largeImg");	
+var img          = document.querySelectorAll(".images img");
+var imgName      = document.querySelector("#img-name");
+var enlarge      = document.querySelector("#enlarge");
+var windowWidth  = window.innerWidth;
+var windowHeight = window.innerHeight;
 var imgWidth  = img[0].naturalWidth;
-var imgHeight = img[0].naturalHeight;	
-imgWidth  = imgWidth / 5;
-imgHeight = imgHeight / 5;
-var widthDiv = imgWidth + 12;
-largeImg.setAttribute("width", imgWidth);
-largeImg.setAttribute("height", imgHeight);
-imgContainer.style = "width:"+ widthDiv +'px';
+var imgHeight = img[0].naturalHeight;
 var srcList = [];
+
+
+enlarge.addEventListener("click", function() { 
+	
+});
+
+
 
 var len = img.length;
 for(let i = 0; i < len; i++) {
+   srcList[i] = img[i].src;
+   img[i].addEventListener('click', function() {
 	
-srcList[i] = img[i].src;
-img[i].addEventListener('click', function() {
-	
-	var imgWidth  = img[i].naturalWidth;
-     var imgHeight = img[i].naturalHeight;	
-     imgWidth  = imgWidth / 5;
-     imgHeight = imgHeight / 5;
-
 	var src = img[i].src;
 	largeImg.removeAttribute("hidden");
 	largeImg.setAttribute("src", src);
-	largeImg.setAttribute("width", imgWidth);
-	largeImg.setAttribute("height", imgHeight);
-	largeImg.setAttribute("width", imgWidth);
-     largeImg.setAttribute("height", imgHeight);	
-     
+	
 });	
-
 }
-// get width and height of image javascript 
-// set width and height according to width and height window screen
 
+body[0].addEventListener("keydown", function(e) { 
+         if(e.keyCode == 37) {
+	         e.preventDefault();
+	         moveImg(-1, img.length);
+         }else if(e.keyCode == 39) {
+	         e.preventDefault();
+	         moveImg(1, img.length);
+         }
+ });
 
-function moveImg(symbol) {
+prev.addEventListener("click", function() { moveImg(-1, img.length); });
 
+next.addEventListener("click", function() { moveImg(+1, img.length); });
+
+function moveImg(symbol, len) {
      for(let i = 0; i < len; i++)  {
-	     
 	     img[i].style = "";
 	     if(srcList[i] == largImg.src) {
 		    i =  symbol + i
@@ -141,14 +133,10 @@ function moveImg(symbol) {
 		  largImg.setAttribute("src", moveSrc);
 	     }
      }
-
 }
 
 
 </script>
-
-
-
 
 </body>
 </html>
