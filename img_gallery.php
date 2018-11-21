@@ -58,7 +58,8 @@ $images = array(
 <body>
 <div id="image-container">
 <div id="prev-next">	
-<div id="enlarge"></div>
+<b id="enlarge">enlarge</b>
+<b id="reduce" hidden>Close</b>
 <img src="img/abbey_wood_park_1.jpg" id="largeImg">
 <b id="prev">PREV</b><b id="next">NEXT</b>
 </div>
@@ -76,12 +77,14 @@ $images = array(
 
 var prev         = document.getElementById("prev");
 var next         = document.getElementById("next");
+var prevNext     = document.getElementById("prev-next");
 var body         = document.querySelectorAll("body");
 var imgContainer = document.getElementById("image-container");
-var largImg      = document.querySelector("#largeImg");	
+var largeImg     = document.querySelector("#largeImg");	
 var img          = document.querySelectorAll(".images img");
 var imgName      = document.querySelector("#img-name");
 var enlarge      = document.querySelector("#enlarge");
+var reduce       = document.querySelector("#reduce");
 var windowWidth  = window.innerWidth;
 var windowHeight = window.innerHeight;
 var imgWidth  = img[0].naturalWidth;
@@ -90,9 +93,17 @@ var srcList = [];
 
 
 enlarge.addEventListener("click", function() { 
+	prevNext.id = "newLargeImg";
+	enlarge.setAttribute("hidden", "hidden");
+	reduce.removeAttribute("hidden");
 	
 });
 
+reduce.addEventListener("click", function() {
+	prevNext.id = "prev-next";
+	reduce.setAttribute("hidden", "hidden");
+	enlarge.removeAttribute("hidden");
+});
 
 
 var len = img.length;
@@ -101,7 +112,7 @@ for(let i = 0; i < len; i++) {
    img[i].addEventListener('click', function() {
 	
 	var src = img[i].src;
-	largeImg.removeAttribute("hidden");
+	//largeImg.removeAttribute("hidden");
 	largeImg.setAttribute("src", src);
 	
 });	
@@ -124,13 +135,13 @@ next.addEventListener("click", function() { moveImg(+1, img.length); });
 function moveImg(symbol, len) {
      for(let i = 0; i < len; i++)  {
 	     img[i].style = "";
-	     if(srcList[i] == largImg.src) {
+	     if(srcList[i] == largeImg.src) {
 		    i =  symbol + i
 		    if(i == len) {  i = 0; }
 		    if(i == -1)  {  i = len - 1; }
 		    img[i].style = "border:2px solid red";
 		  var moveSrc = srcList[i];
-		  largImg.setAttribute("src", moveSrc);
+		  largeImg.setAttribute("src", moveSrc);
 	     }
      }
 }
